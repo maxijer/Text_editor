@@ -1,0 +1,25 @@
+import java.math.BigInteger;
+import java.util.Scanner;
+
+public class Main {
+  public static void main(String[] args) {
+      Scanner in = new Scanner(System.in);
+      int n = in.nextInt();
+      int m = in.nextInt();
+      n--;
+      m--;
+      BigInteger one = getFactorial(n + m);
+      BigInteger two = getFactorial(n);
+      BigInteger treet = getFactorial(m);
+      BigInteger res_2 = treet.multiply(two);
+      BigInteger res = one.divide(res_2);
+      System.out.println(res);
+  }
+
+  public static BigInteger getFactorial(int f) {
+  BigInteger result = BigInteger.ONE;
+  for (int i = 1; i <= f; i++)
+     result = result.multiply(BigInteger.valueOf(i));
+  return result;
+}
+}

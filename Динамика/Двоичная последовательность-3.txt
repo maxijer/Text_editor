@@ -1,0 +1,24 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+#define int long long
+
+signed main() {
+    int n, k;
+    cin >> n >> k;
+    vector<int> dp(n + 1, 0);
+    dp[0] = 1;
+    dp[1] = 2;
+    for (int i = 2; i < k && i <= n; ++i) {
+        dp[i] = 2 * dp[i - 1];
+    }
+    for (int i = k; i <= n; ++i) {
+        for (int j = i; j > i - k - 1; --j) {
+            dp[i] += dp[j];
+        }
+    }
+    cout << dp[n] << endl;
+    return 0;
+}
+

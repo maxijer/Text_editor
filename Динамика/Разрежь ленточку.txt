@@ -1,0 +1,24 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <bitset>
+#include <cmath>
+
+using namespace std;
+
+#define int long long
+#define INF 1e10
+
+signed main() {
+    int n, a, b, c;
+    cin >> n >> a >> b >> c;
+    int k, s = 1;
+    for (int i = 0; i <= n; i++)
+        for (int j = 0; j <= n; j++) {
+            k = n - a * i - b * j;
+            if (k >= 0 && k % c == 0)
+                s = max(s, (i + j + k / c));
+        }
+    cout << s;
+}
+

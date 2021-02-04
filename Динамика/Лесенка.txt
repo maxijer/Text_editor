@@ -1,0 +1,23 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+int count = 0;
+#define int long long
+
+void go(int r, int z) {
+    for (int i = r; i <= z; i++) {
+        go(i + 1, z - i);
+    }
+    if (z == 0) {
+        count++;
+    }
+
+}
+
+signed main() {
+    int n;
+    cin >> n;
+    go(1, n);
+    cout << count;
+}

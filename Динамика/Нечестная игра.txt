@@ -1,0 +1,24 @@
+#include <iostream>
+#include <set>
+
+using namespace std;
+
+#define int long long
+
+signed main() {
+    int n, k;
+    cin >> n >> k;
+    set<int> sol;
+    for (int i = 5; i <= 2 * n + 1; i *= 2) {
+        if (n % i - 1 and n % i - 1 <= k) {
+            sol.insert(abs(n % i - 1));
+        }
+    }
+    if (!sol.empty()) {
+        for (auto j: sol) {
+            cout << j << " ";
+        }
+    } else {
+        cout << "Impossible";
+    }
+}

@@ -1,0 +1,19 @@
+#include<iostream>
+#include <vector>
+
+using namespace std;
+#define int long long
+
+signed main() {
+    int a, b;
+    cin >> a >> b;
+    vector<int> d(b + 1, 0);
+    d[a] = 1;
+    for (int i = a + 1; i <= b; ++i) {
+        d[i] += d[i - 1];
+        if (i % 2 == 0) {
+            d[i] += d[i / 2];
+        }
+    }
+    cout << d[b];
+}

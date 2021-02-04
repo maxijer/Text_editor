@@ -1,0 +1,25 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+#define int long long
+
+signed main() {
+    int n;
+    cin >> n;
+    vector<vector<int>> d(n + 1, vector<int>(n + 1));
+    for (int i = 1; i <= n; ++i) {
+        d[0][i] = 1;
+        d[i][0] = 0;
+    }
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= i; ++j) {
+            d[i][j] = d[i - j][j] + d[i][j - 1];
+        }
+        for (int j = i + 1; j <= n; ++j) {
+            d[i][j] = d[i][j - 1];
+        }
+    }
+    cout << d[n][n] << endl;
+}

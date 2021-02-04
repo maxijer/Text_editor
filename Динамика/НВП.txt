@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <bitset>
+#include <cmath>
+
+using namespace std;
+
+#define int long long
+#define INF 1e10
+
+signed main() {
+    int n;
+    cin >> n;
+    vector<int> a;
+    for (int i = 0; i < n; i++) {
+        int z;
+        cin >> z;
+        a.push_back(z);
+    }
+    vector<int> d(n + 1, INF);
+    d[0] = -INF;
+    for (int i = 0; i < n; ++i) {
+        int j = upper_bound(d.begin(), d.end(), a[i]) - d.begin();
+        if (d[j - 1] < a[i] && a[i] < d[j]) {
+            d[j] = a[i];
+        }
+    }
+    for (int i = 1; i < n + 1; ++i) {
+        if(d[i] != abs(INF) && d[i + 1] == abs(INF)) {
+            cout << i << endl;
+            return 0;
+        }
+    }
+    cout << n;
+}

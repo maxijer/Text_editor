@@ -1,0 +1,16 @@
+#include<iostream>
+#include <vector>
+
+using namespace std;
+#define int long long
+
+signed main(){
+    int a, b;
+    cin >> a >> b;
+    vector<int> d(b + 1, 0);
+    d[a] = 1;
+    for(int i = a + 2; i <= b; ++i){
+        d[i] = d[i - 2] + d[i - 3];
+    }
+    cout << d[b];
+}

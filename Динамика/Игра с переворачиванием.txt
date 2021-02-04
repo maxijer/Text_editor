@@ -1,0 +1,82 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+#define int long long
+
+int sum(string s) {
+    int k = 0;
+    for (int i = 0; i < s.size(); ++i) {
+        k += (s[i] - '0');
+    }
+    return k;
+}
+
+signed main() {
+    int n, st1;
+    string s;
+    cin >> n;
+    for (int i = 0; i < n; ++i) {
+        cin >> st1;
+        s += to_string(st1);
+    }
+    int k = sum(s);
+    if (k == s.size()) {
+        cout << k - 1;
+        return 0;
+    }
+    int i1, j1;
+    for (int i = s.size() - 1; i >= 0; --i) {
+        if (s[i] == '0') {
+            j1 = i;
+            break;
+        }
+    }
+    for (int i = 0; i < s.size(); ++i) {
+        if (s[i] == '0') {
+            i1 = i;
+            break;
+        }
+    }
+    string s1 = s.substr(i1, j1 - i1 + 1);
+    s1 += "10";
+    vector<int> g0;
+    vector<int> g1;
+    vector<string> arr;
+    int pos = 0;
+    for (int i = 0; i < s1.size(); ++i) {
+        if (s1[i + 1] == '1' and s1[i] == '0')
+            for (int j = i + 1; j < s1.size(); ++j)
+                if (s1[j] == '0') {
+                    arr.push_back(s1.substr(pos, j - pos));
+                    pos = j;
+                    break;
+                }
+    }
+    string str = arr[arr.size() - 1];
+    while (str[str.size() - 1] == '1') {
+        str.pop_back();
+    }
+    arr[arr.size() - 1] = str;
+    for (auto i: arr) {
+        int kk = sum(i);
+        g1.push_back(kk);
+        g0.push_back(i.size() - kk);
+    }
+    int res = 0;
+    for (int i = 0; i < arr.size(); ++i) {
+        for (int j = i; j < arr.size(); ++j) {
+            string temp;
+            int qwer = 0, qa = 0;
+            for (int h = i; h < j; ++h) {
+                temp += arr[h];
+                qwer += g1[h];
+                qa += g0[h];
+            }
+            qa += g0[j];
+            res = max(k + qa - qwer, res);
+        }
+    }
+    cout << res;
+}

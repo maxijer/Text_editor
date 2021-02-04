@@ -1,0 +1,32 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+#define int long long
+
+signed main() {
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    vector<vector<int>> minSc(n, vector<int>(n));
+    for (int len = 2; len <= n; len++) {
+        for (int l = 0; l + len - 1 < n; l++) {
+            int r = l + len - 1;
+            if (len == 2)
+            {
+                minSc[l][r] = 0;
+            } else {
+                minSc[l][r] = 2000 * 1000 + 1;
+                for (int m = l + 1; m <= r - 1; m ++)
+                {
+                    minSc[l][r] = min(minSc[l][r], a[m] * (a[l] + a[r]) + minSc[l][m] + minSc[m][r]);
+                }
+            }
+        }
+    }
+    cout << minSc[0][n - 1];
+}

@@ -1,0 +1,39 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <map>
+
+using namespace std;
+#define int long long
+
+signed main() {
+    int n;
+    cin >> n;
+    map<int, int> m;
+    vector<pair<int, int>> g;
+    for (int i = 0; i < n; i++) {
+        int z;
+        cin >> z;
+        m[z]++;
+    }
+    for (auto x: m) {
+        g.push_back({x.first, x.second});
+    }
+    vector<int> f(n);
+    int n1 = g.size();
+    for (int i = 0; i < n1; i++) {
+        int p = i - 1;
+        while (p >= 0 && g[p].first + 1 == g[i].first) {
+            p--;
+        }
+        if (p == -1) {
+            f[i] = 1LL * g[i].first * g[i].second;
+        } else {
+            f[i] = f[p] + 1LL * g[i].first * g[i].second;
+        }
+        if (i != 0) {
+            f[i] = max(f[i], f[i - 1]);
+        }
+    }
+    cout << f[g.size() - 1];
+}
